@@ -1,4 +1,4 @@
-SELECT TOP 100
+SELECT TOP 150
     i.specObjID as ID,
     i.z as z,
     l.h_alpha_flux as Halpha,

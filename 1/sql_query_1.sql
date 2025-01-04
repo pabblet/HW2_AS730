@@ -11,3 +11,4 @@ WHERE i.z > 0.005 AND i.z < 0.3
     AND e.lgm_tot_p50 != -9999
     AND e.sfr_tot_p50 != -9999
     AND e.oh_p50 != -9999
+    AND e.bptclass = 1
