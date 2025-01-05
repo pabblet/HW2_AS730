@@ -32,11 +32,10 @@ for i in np.arange(len(time)-1):
     SED+= spectrum*mass/1e6 #normalization
 
 att_SED= np.zeros(len(wl))
-Av= 1.0
+Av= 1
 Rv= 4.05
 E= Av/Rv
 wl_um= wl*1e-4
-
 
 for i in range(len(wl)):
     if wl_um[i]<0.63:
@@ -54,21 +53,21 @@ sfh= pd.read_csv('sfh.dat', names=['age', 'sfr'], sep=' ', engine='python')
 age= np.asarray(sfh.age)/1e3
 sfr= np.asarray(sfh.sfr)
 
-sp= fsps.StellarPopulation(compute_vega_mags=False, zcontinuous=1, logzsol=0.0, sfh=3, imf_type=2, imf1=1.35, imf2=2.35, imf3=2.35,
-                           imf_lower_limit=0.1, imf_upper_limit=300, dust_type=2)
+sp= fsps.StellarPopulation(compute_vega_mags=False, zcontinuous=1, logzsol=0.0, sfh=3, imf_type=2, imf1=1.30, imf2=2.35, imf3=2.35,
+                           imf_lower_limit=0.1, imf_upper_limit=300)
 sp.set_tabular_sfh(age, sfr)
-print('SSP calculated without dust')
+print('CSP calculated without dust')
 wave, spec= sp.get_spectrum(tage=13.8, peraa=True)
 
-sp2= fsps.StellarPopulation(compute_vega_mags=False, zcontinuous=1, logzsol=0.0, sfh=3, imf_type=2, imf1=1.35, imf2=2.35, imf3=2.35,
+sp2= fsps.StellarPopulation(compute_vega_mags=False, zcontinuous=1, logzsol=0.0, sfh=3, imf_type=2, imf1=1.30, imf2=2.35, imf3=2.35,
                            imf_lower_limit=0.1, imf_upper_limit=300, dust_type=2, dust2=1)
 sp2.set_tabular_sfh(age, sfr)
-print('SSP calculated with dust')
+print('CSP calculated with dust')
 wave2, spec2= sp2.get_spectrum(tage=13.8, peraa=True)
 
 plt.plot(wave, spec, label='FSPS', alpha=0.5)
 plt.plot(wave2, spec2, label='FSPS Calzetti')
-plt.title('Spectra of SSP using BPASS and FSPS')
+plt.title('Spectra of CSP using BPASS and FSPS')
 plt.xlim(30,1e5)
 plt.ylim(1e-1,1e5)
 plt.loglog()
